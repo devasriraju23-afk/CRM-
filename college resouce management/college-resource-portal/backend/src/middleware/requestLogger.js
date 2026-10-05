@@ -1,0 +1,12 @@
+import morgan from 'morgan';
+import { logger } from '../utils/logger.js';
+
+// Route Morgan output through Winston
+const stream = {
+  write: (message) => logger.http(message.trim()),
+};
+
+export const requestLogger = morgan(
+  ':method :url :status :res[content-length] - :response-time ms',
+  { stream }
+);
